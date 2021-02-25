@@ -1,0 +1,78 @@
+<!-- 
+     목록 출력 
+     =======
+     1) <ul> 
+     2) <ol>
+     3) <dl>
+     4) <table> 
+     
+     이미지출력 , 링크
+     <img>     <a>
+     
+     입력창 
+     <input>
+     <textarea>
+     <select>
+     <button>
+     
+     1. table 태그 (행과 열) 
+        =================
+          title ============> titlebar
+        =================
+          값  
+        =================
+        
+        =================
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+   <center>
+     <h3>사원 목록</h3>
+     <table width=500 border=1 bordercolor=black><!--  HTML은 태그+속성(화면 출력) -->
+       <tr bgcolor="#CCCCFF"> <!-- 타이틀 입력 -->
+         <th>이름</th> <!-- th (table header) td (table data)-->
+         <th>성별</th>
+         <th>직위</th>
+         <th>부서</th>
+         <th>근무지</th><!-- th: bold,center -->
+       </tr>
+       <!-- 값을 채워준다 (한줄 => 데이터 5개) -->
+       <tr>
+         <td align="center">홍길동</td> <!--  td: bold(X),left -->
+         <td align="center">남자</td>  <!--  align(정렬수 사용하는 속성) : left,center,right -->
+         <td align="center">사원</td>  <!--  가운데 정렬 : 동일한 글자수가 있는 경우  -->
+         <td align="center">개발부</td>
+         <td align="center">서울</td>
+       </tr>
+       <tr>
+         <td align="center">심청이</td> <!--  td: bold(X),left -->
+         <td align="center">여자</td>  <!--  align(정렬수 사용하는 속성) : left,center,right -->
+         <td align="center">대리</td>  <!--  가운데 정렬 : 동일한 글자수가 있는 경우  -->
+         <td align="center">개발부</td>
+         <td align="center">부산</td>
+       </tr>
+       <tr>
+         <td align="center">이순신</td> <!--  td: bold(X),left -->
+         <td align="center">남자</td>  <!--  align(정렬수 사용하는 속성) : left,center,right -->
+         <td align="center">과장</td>  <!--  가운데 정렬 : 동일한 글자수가 있는 경우  -->
+         <td align="center">기획부</td>
+         <td align="center">서울</td>
+       </tr>
+     </table>
+   </center>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
