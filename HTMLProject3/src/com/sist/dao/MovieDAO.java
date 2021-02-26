@@ -4,19 +4,18 @@ import java.sql.*;//JDBC => 데이터베이스 연결
 public class MovieDAO {
 
 	private Connection conn;
-   private PreparedStatement ps;// PL/SQL CallableStatement(함수)
-   private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
-   public MovieDAO() {
-	   try {
-		   Class.forName("oracle.jdbc.driver.OracleDriver");
-	   }catch(Exception ex){}
-   }
-   public void getConnection() {
-	   try {
-		   conn=DriverManager.getConnection(URL,"hr","happy");
-	   }catch(Exception ex) {}
-   }
-   // 6. 오라클 종료  exit
+	private PreparedStatement ps;// PL/SQL CallableStatement(함수)
+   	private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
+   	public MovieDAO() {
+   		try {
+   			Class.forName("oracle.jdbc.driver.OracleDriver");
+   		}catch(Exception ex){}
+   	}
+   	public void getConnection() {
+   		try {
+   			conn=DriverManager.getConnection(URL,"hr","happy");
+   		}catch(Exception ex) {}
+   	}
    public void disConnection() {
 	   try {
 		   if(ps!=null) ps.close();

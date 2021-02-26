@@ -22,7 +22,6 @@ public class MovieListServlet extends HttpServlet {
 		// 2. 누구에게 보내는지 설정 
 		PrintWriter out=response.getWriter();
 		// 서버에 요청한 유저의 메모리 위치
-		// http://211.238.142.181/
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
