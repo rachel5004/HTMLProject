@@ -70,7 +70,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		out.write("<table border=0 width=700>");
 		out.write("<tr>");
-		out.write("<td><a href=#>货 臂</a></td>");
+		out.write("<td><a href=BoardInsertServlet>货 臂</a></td>");
 		out.write("</tr>");
 		out.write("</table>");
 		
@@ -100,7 +100,7 @@ public class BoardListServlet extends HttpServlet {
 		out.write("<table width=700>");
 		out.write("<tr>");
 		out.write("<td align=left>");
-		out.write("Searcr:");
+		out.write("Search: ");
 		out.write("<select name=fs>");
 		out.write("<option value=name>捞抚</option>");
 		out.write("<option value=subject>力格</option>");

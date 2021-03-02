@@ -77,8 +77,100 @@ public class BoardDAO {
 	   return cnt;
    }
    // 추가 : insert(sequence)
+   public void boardInsert(BoardVO vo) {
+	   try {
+		   getConnection();
+		   String sql="INSERT INTO webBoard VALUES "
+		   		+ "(wb_no_seq.nextval,?,?,?,?,sysdate,0)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, vo.getName());
+		   ps.setString(2, vo.getSubject());
+		   ps.setString(3, vo.getContent());
+		   ps.setString(4, vo.getPwd());
+		   ps.executeUpdate();
+		   
+	   }catch(Exception e) {
+		   System.out.println(e.getMessage());
+	   }finally {
+		   disConnection();
+	   }
+   }
    // 수정 : update(SQL 1.비밀번호 확인 2.수정)
-   // 삭제 : delete -> 비밀번호 확
+   public BoardVO boardUpdateBoardData(int no) {
+	   BoardVO vo = new BoardVO();
+	   try {
+		   getConnection();
+		   String sql="SELECT name,subject,content FROM webBoard WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   
+		   ps.setInt(1,no);
+		   ps.executeQuery();
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setName(rs.getString(1));
+		   vo.setSubject(rs.getString(2));
+		   vo.setContent(rs.getString(3));
+		   rs.close();
+		   
+	   }catch(Exception e) {
+		   System.out.println(e.getMessage());
+	   }finally {
+		   disConnection();
+	   }
+	   return vo;
+   }
+   public boolean boardUpdate(BoardVO vo) {
+	   boolean bCheck=false;
+	   try {
+		   getConnection();
+		   String sql="SELECT pwd FROM webBoard WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   if(rs.getString(1).equals(vo.getPwd())) {
+			   sql="UPDATE webBoard SET name=?,subject=?,content=? WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, vo.getName());
+			   ps.setString(2, vo.getSubject());
+			   ps.setString(3, vo.getContent());
+			   ps.setInt(4, vo.getNo());
+			   ps.executeUpdate();
+		   };
+		   rs.close();
+		   
+	   }catch(Exception e) {
+		   System.out.println(e.getMessage());
+	   }finally {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
+   // 삭제 : delete -> 비밀번호 확인
+   public boolean boardDelete(int no, String pwd) {
+	   boolean bCheck = false;
+	   try {
+		   getConnection();
+		   String sql="SELECT pwd FROM webBoard WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   if(rs.getString(1).equals(pwd)) {
+			   bCheck=true;
+			   sql="DELETE FROM webBoard WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, no);
+			   ps.executeUpdate();
+		   };
+		   rs.close();
+	   }catch(Exception e) {
+		   System.out.println(e.getMessage());
+	   }finally {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
    // 내용보기 : select
    public BoardVO boardDetailData(int no) {
 	   BoardVO vo = new BoardVO();

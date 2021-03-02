@@ -1,7 +1,6 @@
 package com.sist.board;
 
 import java.io.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,18 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sist.dao.*;
 
-@WebServlet("/BoardDetailServlet")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet("/BoardDeleteServlet")
+public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=EUC-KR");
 		PrintWriter out=response.getWriter();
 		
-		String no = request.getParameter("no");
-		BoardDAO dao = new BoardDAO();
-		BoardVO vo = dao.boardDetailData(Integer.parseInt(no));
+		String no=request.getParameter("no");
 		
 		out.write("<html>");
 		out.write("<head>");
@@ -53,47 +49,57 @@ public class BoardDetailServlet extends HttpServlet {
 		out.write("</head>");
 		out.write("<body>");
 		out.write("<center>");
+		out.write("<h1>삭제하기</h1>");
 		
-		out.write("<h1>내용 보기</h1>");
-		out.write("<table class=table_main width=600>");
+		out.write("<form method=post action=BoardDeleteServlet>");
+		out.write("<table class=table_main width=350>");
 		
 		out.write("<tr>");
-		out.write("<th width=20%>번호</th>");
-		out.write("<td width=30% align=center>"+vo.getNo()+"</td>");
-		out.write("<th width=20%>작성일</th>");
-		out.write("<td width=30% align=center>"+vo.getRegdate().toString()+"</td>");
+		out.write("<th width=30% align=right>비밀번호</th>");
+		out.write("<td width=70%>");
+		out.write("<input type=password name=pwd size=15>");
+		out.write("<input type=hidden name=no value="+no+">");
+		out.write("</td>");
 		out.write("</tr>");
 		
 		out.write("<tr>");
-		out.write("<th width=20%>이름</th>");
-		out.write("<td width=30% align=center>"+vo.getName()+"</td>");
-		out.write("<th width=20%>조회수</th>");
-		out.write("<td width=30% align=center>"+vo.getHit()+"</td>");
-		out.write("</tr>");
-
-		out.write("<tr>");
-		out.write("<th width=20%>제목</th>");
-		out.write("<td colspan=3>"+vo.getSubject()+"</td>");
-		out.write("</tr>");
-		
-		out.write("<tr>");
-		out.write("<td colspan=4 align=left valign=top style=\"height:200px\"><pre>"+vo.getContent()+"</pre></td>");
-		out.write("</tr>");
-		
-		out.write("<tr>");
-		out.write("<td colspan=4 align=right>");
-		out.write("<a href=BoardUpdateServlet?no="+vo.getNo()+">수정</a>&nbsp");
-		out.write("<a href=BoardDeleteServlet?no="+vo.getNo()+">삭제</a>&nbsp");
-		out.write("<a href=BoardListServlet>목록</a>&nbsp");
+		out.write("<td colspan=2 align=center>");
+		out.write("<input type=submit value=삭제>");
+		out.write("<input type=button value=취소>");
 		out.write("</td>");
 		out.write("</tr>");
 		
 		out.write("</table>");
-		
+		out.write("</form>");		
 		out.write("</center>");
 		out.write("</body>");
 		out.write("</html>");
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("text/html;charset=EUC-KR");
+		PrintWriter out = response.getWriter();
+		
+		String no = request.getParameter("no");
+		String pwd=request.getParameter("pwd");
+
+		System.out.println("번호 : "+no);
+		System.out.println("비밀번호 : "+pwd);
+		
+		BoardDAO dao = new BoardDAO();
+		boolean res = dao.boardDelete(Integer.parseInt(no),pwd);
+		System.out.println(res);
+		
+		if(res==true) {
+			response.sendRedirect("BoardListServlet");
+		}else {
+			out.println("<script type=text/javascript>");
+			out.println("alert(\"비밀번호가 틀립니다 다시 입력하세요\");");
+			out.println("history.back();");
+			out.println("</script>");
+		}
+		
+	}
 
 }
