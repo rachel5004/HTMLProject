@@ -1,0 +1,12 @@
+@charset "EUC-KR";
+h2{
+     font-size: 20px;
+     color:#ff80c0;
+}
+p{
+     color:#ff0080;
+     width:500px;
+}
+span{
+   width:500px;
+}

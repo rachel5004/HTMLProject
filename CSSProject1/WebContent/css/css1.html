@@ -1,0 +1,150 @@
+<!-- 
+    page 32 HTML 기본구조 (태그 <태그명>:고정, 속성 <태그명 속성=값>:고정+사용자 정의) 
+         중요점 : 화면에 출력하는 내용 
+                <태그명>출력 내용물</태그명>
+                  => <td>출력물</td>
+                  => <h1>출력물</h1>
+                <태그명 속성=출력내용물>
+                  => <a href="이동할 주소">
+                  => <img src="출력할 이미지">
+                종류 : 여는 태그 , 닫는 태그 , 단독 태그(속성에 값을 출력)
+                     <태그명>     </태그명>   <태그명>,<태그명/>
+                                          <input>
+                                          <img>
+                                          <br> , <hr>
+          = HTML은 에러가 없다 , 열고닫고 
+          page 34
+          = HTML 태그를 열기 닫기 => 순서있게 
+            계층구조 (포함 관계) 
+              <a> (O)
+               <b></b>
+              </a>
+              
+              <a> (X)
+               <b>
+               </a>
+              </b>   
+          page 38 버전관련 
+           HTML 5
+           <!DOCTYPE html> : html이 정의되어 있는 파일 로드 (dtd)
+           dtd => <!ELEMENT table (tr)*>
+                  <!ELEMENT tr (th|td)*>   
+           *** HTML은 대소문자 구분이 없다 
+               * HTML5 버전 => 태그명은 소문자로 한다   
+               
+           <html> : 시작태그 
+             <head>
+               <meta></meta> => 한글 코드 => charset="EUC-KR" (자동 생성)
+                             => 모바일 크기 지정 
+               <title></title>
+               <script></script> : 이벤트 처리 
+               <style></style> : 화면 디자인 => 내부 CSS,외부 CSS,인라인 CSS
+                                                     ======= .css파일 => <link>
+                                 <div style=""> 
+                                 **** 브라우저에 출력되는 내용이 아니다 (문서정의)
+             </head>
+             <body>
+               브라우저에 출력하는 태그를 사용 
+                      <h1>~<h6> : 제목  => 57 page
+                      <table> : 75 page
+                      <ul><ol><dl> : 66 page~69 page
+                      <font> => (X) : CSS작업 
+                      <center> => (X) : CSS작업 
+                      ===========================================
+                      <input> , <form> , <textarea> , <select>
+                      =========================================== 133 page~181 page
+                      <a>  106 page
+                      <img> 94 page
+                      <hr> 58 page
+                      <br> 57 page
+                      <p>  57 page
+                      <pre> 59 page
+                      
+                      <b><strong> : 61 page
+             </body>
+           </html> 
+    <html>
+    
+    <css> : HTML디자인(화면,화면분할) : <div>,<span>
+    =====  
+    1. 내부  <head><style>CSS</style></head> : 파일안에서만 적용
+    2. 외부  파일을 만들어서 사용 : 재사용 => .css
+    3. 인라인 :해당 태그만 적용  <태그명 style="">
+    ======================================================
+    CSS 
+     1. Selector (선택자)
+        = 태그명 
+          형식) 태그명 {
+                  스타일 정의
+               }
+               태그명,태그명 {
+                   스타일 정의 같은 경우 
+               }
+        = 클래스 => 중복이 있는 경우 
+               .클래스명 {
+               }
+        = 아이디 => 중복이 없는 경우 
+               #아이디명{
+               
+               }
+        = 가상  => :hover , :nth-child , :contains
+        
+          <div id="a">
+            <h1></h1>
+          </div>
+          <div id="b">
+            <h1></h1>
+          </div>
+          계층으로 태그 찾기 (CSS가 적용하는 태그)
+          div#a h1 {
+              색상을 파란색을 출력
+          }
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+/*h1{
+   color:orange;
+}
+.a{
+    color:red;
+}
+#b{
+    color:blue;
+}*/
+h1{
+    
+}
+</style>
+</head>
+<!-- 
+        선택자 { 속성 : 값;
+               속성: 값;     ===> 속성은 사용자 정의가 없다 (고정)
+             }
+        선택자 => 아이디,클래스 , 태그 , 위치지정 , * {} => 모든 태그(글꼴),여백
+ -->
+<body>
+  <h1 class="a">Java</h1>
+  <h1 class="a">Oracle</h1>
+  <h1>HTML</h1>
+  <h1>CSS</h1>
+  <h1 id="b">JavaScript</h1>
+  <h1>JSP</h1>
+  <h1 class="a">Spring</h1>
+  <h1>Python</h1>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
