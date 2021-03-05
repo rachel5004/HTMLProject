@@ -9,7 +9,6 @@ REGDATE          DATE
 HIT              NUMBER  
  */
 import java.util.*;
-
 import lombok.*;
 @Getter
 @Setter
