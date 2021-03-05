@@ -18,8 +18,6 @@ public class LoginServlet extends HttpServlet {
 	     // 1. HTML을 전송 (요청한 클라이언트의 브라우저로 전송) 
 		 // => HTML을 보낸다는 메세지를 브라우저에 알려준다 (text/html,text/xml,text/plain(JSON))
 		 response.setContentType("text/html;charset=UTF-8");
-		 // 1조외에 다른조는 EUC-KR
-		 // 클라이언트 브라우저에서 HTML을 읽어 갈 수 있는 위치 확인(메모리)
 		 PrintWriter out=response.getWriter();
 		 out.println("<html>");
 		 out.println("<head>");
