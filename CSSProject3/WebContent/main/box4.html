@@ -1,0 +1,48 @@
+<!-- 
+    테두리 (border와 관련)
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div{
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin: 20px; /* 20px 20px 20px*/
+  /*
+      margin: 20px 30px; = 20px 30px 20px 30px
+  */
+  border-width: 5px;
+}
+.a{
+    border-style: solid;
+    border-radius:100px;
+}
+.b{
+     border-style: dotted;
+}
+.c{
+    border-style: ridge;
+}
+img{
+  width:250px;
+  height:250px;
+  border-radius:100px;
+}
+input 
+{
+   border-radius:30px;
+}
+</style>
+</head>
+<body>
+  <div class="a"></div>
+  <div class="b"></div>
+  <div class="c"></div>
+  <img src="m1.jpeg"><br>
+  <input type=text size=15>
+</body>
+</html>
