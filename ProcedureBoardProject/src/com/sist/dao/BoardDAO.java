@@ -4,34 +4,24 @@ import java.sql.*;
 import java.util.*;
 import oracle.jdbc.*;
 public class BoardDAO {
-   // 1. 오라클 연결 객체
 	private Connection conn;
-   // 2. SQL문장 전송 , 함수 호출 
 	private CallableStatement cs;// 프로시저 호출시 사용되는 클래스
-   // 3. 오라클 URL주소 
 	private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
-   // 4. 오라클 연결 드라이버 설치 
-	public BoardDAO()
-	{
-		try
-		{
+	public BoardDAO() {
+		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		}catch(Exception ex) {}
 	}
 	
 	// 5. 오라클 연결
-	public void getConnection()
-	{
-		try
-		{
+	public void getConnection() {
+		try {
 			conn=DriverManager.getConnection(URL,"hr","happy");
 		}catch(Exception ex) {}
 	}
 	// 6. 오라클 닫기
-	public void disConnection()
-	{
-		try
-		{
+	public void disConnection() {
+		try {
 			if(cs!=null) cs.close();
 			if(conn!=null) conn.close();
 		}catch(Exception ex) {}
@@ -47,11 +37,9 @@ public class BoardDAO {
 			)
 	 */
 	 // BoardVO(한개의 게시물) => 게시물 여러개를 모아서 브라우저로 전송 
-	 public ArrayList<BoardVO> board_list(int page)
-	 {
+	 public ArrayList<BoardVO> board_list(int page) {
 		 ArrayList<BoardVO> list=new ArrayList<BoardVO>();
-		 try
-		 {
+		 try {
 			 // 1. 연결
 			 getConnection();
 			 // 2. SQL문장을 만든다 
@@ -98,13 +86,9 @@ public class BoardDAO {
 			 }
 			 rs.close();
 			 
-		 }catch(Exception ex)
-		 {
-			 // 오류 처리
+		 }catch(Exception ex) {
 			 ex.printStackTrace();
-		 }
-		 finally
-		 {
+		 }finally {
 			 disConnection();
 		 }
 		 return list;
@@ -115,11 +99,9 @@ public class BoardDAO {
               pTotal OUT NUMBER
           )
 	  */
-	 public int board_totalpage()
-	 {
+	 public int board_totalpage() {
 		  int total=0;
-		  try
-		  {
+		  try {
 			  // 1. 연결
 			  getConnection();
 			  // 2. SQL문장 
@@ -130,25 +112,158 @@ public class BoardDAO {
 			  // 실행
 			  cs.executeUpdate();
 			  total=cs.getInt(1);
-		  }catch(Exception ex)
-		  {
+		  }catch(Exception ex) {
 			  ex.printStackTrace();
-		  }
-		  finally
-		  {
+		  }finally {
 			  disConnection();
 		  }
 		  return total;
 	 }
+	 // 7-2. 게시물 올리기
+	 /*
+	  *     CREATE OR REPLACE PROCEDURE board_insert(
+			   pName freeboard.name%TYPE,
+			   pSubject freeboard.subject%TYPE,
+			   pContent freeboard.content%TYPE,
+			   pPwd freeboard.pwd%TYPE
+			)
+	  */
+	 // 자바에서 오라클에 만들어진 함수(프로시저)를 호출 : 자바에서 호출 (제어)
+	 // DAO,VO => 웹 프로그램의 핵심 
+	 // DAO => 원시소스 => 라이브러리 (ORM:MyBatis(O),Hibernate,JPA)
+	 public void board_insert(BoardVO vo) {
+		 try {
+			 // 연결
+			 getConnection();
+			 // SQL문장 
+			 String sql="{CALL board_insert(?,?,?,?)}";
+			 // 함수 호출 
+			 cs=conn.prepareCall(sql);
+			 // ?=>값을 채운다 
+			 cs.setString(1, vo.getName());
+			 cs.setString(2, vo.getSubject());
+			 cs.setString(3, vo.getContent());
+			 cs.setString(4, vo.getPwd());
+			 // 실행한다 
+			 cs.executeUpdate();
+		 }catch(Exception ex) {
+			 // 오류 처리
+			 ex.printStackTrace();
+			 // 프로시저,함수 => ERP (취업:85%) = 학교,은행,공기업(관리)
+			 // 차세대 개발 => AL, 5G (속도) => Front (VueJS,ReactJS)
+			 // 모바일 : 안드로이드,아이폰 => 통합(플래터) 
+			 
+		 }finally {
+			 // 닫기
+			 disConnection();
+			 /*
+			  *   자바메소드 , 오라클에서 프로시저 
+			  *   1) 메소드,프로시저: 한가지 기능 수행 (구조화)
+			  *   2) 반복이 많은 경우에 제작(재사용)
+			  */
+		 }
+	 }
+	 // 7-3. 상세보기 
+	 /*
+	  *     CREATE OR REPLACE PROCEDURE board_detail(
+			   pNo freeboard.no%TYPE,
+			   pResult OUT SYS_REFCURSOR
+			)
+	  */
+	 // 화면 출력 : 서블릿 , JSP 
+	 public BoardVO board_detail(int no) {
+		 BoardVO vo=new BoardVO();
+		 try {
+			 getConnection();
+			 String sql="{CALL board_detail(?,?)}";
+			 cs=conn.prepareCall(sql);
+			 // 실행전 => ?에 값을 채운다 
+			 cs.setInt(1, no);
+			 // 읽어올 위치를 설정 
+			 cs.registerOutParameter(2, OracleTypes.CURSOR);
+			 cs.executeUpdate();
+			 // no,name,subject,content,regdate,hit,like1
+			 ResultSet rs=(ResultSet)cs.getObject(2);
+			 rs.next();
+			 vo.setNo(rs.getInt(1));
+			 vo.setName(rs.getString(2));
+			 vo.setSubject(rs.getString(3));
+			 vo.setContent(rs.getString(4));
+			 vo.setRegdate(rs.getDate(5));
+			 vo.setHit(rs.getInt(6));
+			 vo.setLike1(rs.getInt(7));
+			 rs.close();
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+		 }finally {
+			 disConnection();
+		 }
+		 // Object selectOne()
+		 return vo;
+	 }
+	 // 7-4. 삭제하기
+	 /*
+	  * CREATE OR REPLACE PROCEDURE board_delete(
+		   pNo freeboard.no%TYPE,
+		   pPwd freeboard.pwd%TYPE,
+		   pResult OUT freeboard.name%TYPE
+		)
+	  */
+	 public boolean board_delete(int no,String pwd) {
+		 boolean bCheck=false;
+		 try {
+			 getConnection();
+			 String sql="{CALL board_delete(?,?,?)}";
+			 cs=conn.prepareCall(sql);
+			 cs.setInt(1, no);
+			 cs.setString(2, pwd);
+			 cs.registerOutParameter(3, OracleTypes.VARCHAR);
+			 
+			 cs.executeUpdate();
+			 String result=cs.getString(3);
+			 
+			 bCheck=Boolean.parseBoolean(result); // String => boolean으로 변경
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+		 }finally {
+			 disConnection();
+		 }
+		 return bCheck;
+	 }
+	 // 7-5. 수정하기
+	 /*
+	  *   CREATE OR REPLACE PROCEDURE board_updateData(
+			   pNo freeboard.no%TYPE,
+			   pResult OUT SYS_REFCURSOR
+			)
+	  */
+	 public BoardVO board_updateData(int no) {
+		 BoardVO vo=new BoardVO();
+		 try {
+			 getConnection();
+			 String sql="{CALL board_uodateData(?,?)}";
+			 cs=conn.prepareCall(sql);
+			 cs.setInt(1, no);
+			 cs.registerOutParameter(2, OracleTypes.CURSOR);
+			 // no,name,subject,content
+			 cs.executeUpdate();
+			 ResultSet rs=(ResultSet)cs.getObject(2);
+			 rs.next();
+			 vo.setNo(rs.getInt(1));
+			 vo.setName(rs.getString(2));
+			 vo.setSubject(rs.getString(3));
+			 vo.setContent(rs.getString(4));
+			 rs.close();
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+		 }finally {
+			 disConnection();
+		 }
+		 return vo;
+	 }
+	 // 7-6. 찾기 
 	
 }
-
-
-
-
-
-
-
 
 
 
