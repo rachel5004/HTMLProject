@@ -1,0 +1,127 @@
+<!-- 
+      HTML 태그
+        <input> 
+          type: button,submit,text,date,password
+                hidden,file
+        <table> 
+        <form>
+        <a>
+        <div>
+        <span>
+        <hr>
+        <br>
+        <p>
+        <img> 
+        ==> <fieldset><label>
+        
+        ==> <header><footer><section><aside><article>
+      CSS 속성 
+        margin , padding , font , text 
+        => id속성 , class속성 , 하위..., 속성값 input[type=""]
+                           * ^ $
+                           img[src*=/recipe/]
+      DAO (CRUD) : Spring(Back-End)
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+fieldset {
+	width:350px;
+}
+label {
+	width:100px;
+	display: table-cell; /* <td> */
+}
+ul{
+    width:330px;
+    list-style-type: none;
+    display: table;
+    border-collapse: collapse;
+}
+ul li{
+  width: 300px;
+  display: table-row; /* <tr> */
+}
+input[type="text"],input[type="password"]{
+   width: 150px;
+   padding-left: 10px;
+}
+</style>
+<script type="text/javascript">
+/*
+ *  var : 자동 지정 변수 
+    var i=10;  i(int)
+    var i=10.5; i(double)
+    var i="Hello"; i(String)
+    var i=[]; i(Array)
+    var i={name:'홍길동'}; i(Object) ==> JSON
+       => i.name
+       
+    ==> var : 지역변수 => 블록을 벗어났다 
+    
+    function display()
+    {
+    	var i=10;
+    	if(i==10)
+    	{
+    	    var j=100;	
+    	}
+    	alert(j);
+    }
+    ==> ES5 (ES6:vuejs,reactjs)
+        var => let,const
+ */
+function login()
+{
+	var f=document.frm;// form객체 
+	if(f.id.value=="")
+	{
+	    f.id.focus();
+	    return;
+	}
+	if(f.pw.value=="")
+	{
+	   f.pw.focus();
+	   return;
+	}
+	f.submit();
+	/*
+	    계층구조 
+	      window
+	        |
+	     -------------------
+	     |                 |
+	  document        history
+	     |
+	    form
+	     |
+	    input
+	*/
+	
+}
+</script>
+</head>
+<body>
+  <form name=frm action="login_ok.html">
+  <fieldset>
+    <legend>로그인</legend>
+     <ul>
+      <li>
+        <label for=id>ID</label>
+        <input type=text id=id name=id>
+      </li>
+      <li>
+        <label for=pw>Password</label>
+        <input type=password id=pw name=pw>
+      </li>
+      <li>
+        <input type=button value="로그인" onclick="login()">
+      </li>
+     </ul>
+   </fieldset>
+  </form>
+</body>
+</html>
