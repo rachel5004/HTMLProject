@@ -12,8 +12,8 @@ public class MovieManager {
    public void movieData() {
 	   MovieDAO dao= new MovieDAO();
 	   try {
-		   String url="https://movie.daum.net/ranking/reservation";
-		   int cno=1;
+		   String url="https://movie.daum.net/ranking/boxoffice/monthly";
+		   int cno=3;
 		   Document doc=Jsoup.connect(url).get();
 		   Elements link=doc.select("div.thumb_cont strong.tit_item a.link_txt");
 		   Elements regdate=doc.select("span.txt_info span.txt_num");
@@ -80,20 +80,17 @@ public class MovieManager {
 				   
 				   Thread.sleep(100);
 				   System.out.println("========================================================");
-			   }catch(Exception ex){}
+			   }catch(Exception e){e.printStackTrace();}
 		   }
-	   }catch(Exception ex){}
+	   }catch(Exception e){}
    }
    public String youtubeGetKey(String title){
 	   String key="";
 	   try{
 		   String url="https://www.youtube.com/results?search_query="+title;
 		   Document doc=Jsoup.connect(url).get();
-		   // /watch?v=bdcIC8d4nW0
+		   // /watch?v=
 		   Pattern p=Pattern.compile("/watch\\?v=[^가-힣]+");
-		   /*
-		    *  /watch?v=bdcIC8d4nW0","webPageType":"WEB_PAGE_TYPE_WATCH","rootVe":3832}
-		    */
 		   Matcher m=p.matcher(doc.toString());
 		   while(m.find()) {
 			   String str=m.group();// 찾은 문자열을 읽어 온다 
@@ -101,7 +98,9 @@ public class MovieManager {
 			   key=str;
 			   break;
 		   }
-	   }catch(Exception ex){}
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
 	   return key;
    }
    public static void main(String[] args) {

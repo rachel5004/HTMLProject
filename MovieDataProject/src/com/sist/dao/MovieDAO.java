@@ -3,6 +3,8 @@ package com.sist.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class MovieDAO {
 	
@@ -56,6 +58,39 @@ public class MovieDAO {
 			disConnection();
 		}
 	}
-	   
+	public ArrayList<MovieVO> movieListData(int cno) {
+		
+		ArrayList<MovieVO> list=new ArrayList<MovieVO>();
+		try {
+			//1. 연결
+			getConnection();
+			//2. SQL문장 
+			String sql="SELECT mno,poster,title "
+					+"FROM daum_movie "
+					+"WHERE cno=? "
+					+"ORDER BY mno ASC";
+			ps=conn.prepareStatement(sql);
+			// ? 에 값
+			ps.setInt(1, cno);
+			// 결과값 읽기
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				MovieVO vo=new MovieVO();
+				vo.setMno(rs.getInt(1));
+				vo.setPoster(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				
+				list.add(vo);
+			}	
+			rs.close();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			  // 해제
+			disConnection();
+		}
+		return list;
+	}   
 
 }
