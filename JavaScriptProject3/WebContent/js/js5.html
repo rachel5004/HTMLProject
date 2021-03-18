@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('input[type=button]').click(function(){
+		let no=$(this).attr("data"); // 속성값을 읽어 올때 
+		$('#image').html('<img src=m'+no+'.jpeg width=350 height=450>');
+		// innerHTML => html()
+	})
+})
+</script>
+</head>
+<body>
+  <input type="button" value="1번그림" data="1">
+  <input type="button" value="2번그림" data="2">
+  <input type="button" value="3번그림" data="3">
+  <input type="button" value="4번그림" data="4">
+  <input type="button" value="5번그림" data="5">
+  <p id="image"></p>
+</body>
+</html>

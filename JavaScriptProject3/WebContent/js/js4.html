@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+img {
+  width:200px;
+  height:300px;
+}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	/*$('img').css("opacity",.3);// 0.0~1.0 (투명 모드)
+	$('img').hover(function(){
+		$(this).css('opacity',1);
+	},function(){
+		$(this).css('opacity',.3);
+	})*/
+	$('img:eq(4)').css('border','3px solid red');
+	/*
+	   nth-child => eq => 0번부터 시작 
+	*/
+});
+</script>
+</head>
+<body>
+  <img src="m1.jpeg">
+  <img src="m2.jpeg">
+  <img src="m3.jpeg">
+  <img src="m4.jpeg">
+  <img src="m5.jpeg">
+</body>
+</html>

@@ -4,7 +4,7 @@
 	public class basic4_jsp extends HttpServlet {
 		public void _jspInit(){} => web.xml
 		public void _jspDestory(){} => 메모리 해제
-		public vodi _jspService(){} => 화면 출력(jsp가 들어가는 메서드) {
+		public void _jspService(){} => 화면 출력(jsp가 들어가는 메서드) {
 					_jspService(){} => doGet()/doPost()
 			
 			<% %>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+// 선언된 변수 => 전역변수 
+let fileIndex=0;
+$(function(){
+	// html() => 한번만 사용
+	// append() => 추가할때 
+	$('#add').click(function(){
+		$('#user-table').append(
+		  '<tr id=m'+(fileIndex)+'>'
+		 +'<td>파일'+(fileIndex+1)+':<input type=file size=20></td>'
+		 +'</tr>'
+		)
+		fileIndex++;
+	})
+	$('#remove').click(function(){
+		if(fileIndex>0)
+		{
+		   $('#m'+(fileIndex-1)).remove();
+		   fileIndex--;
+		}
+	})
+});
+</script>
+</head>
+<body>
+  <table width=600 border=1 bordercolor=black>
+    <tr>
+     <td align=right>
+       <input type=button id="add" value="추가">
+       <input type=button id="remove" value="삭제">
+     </td>
+    </tr>
+    <tr>
+      <td>
+        <table width=600 id="user-table">
+        
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

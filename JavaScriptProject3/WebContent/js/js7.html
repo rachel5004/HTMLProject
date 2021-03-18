@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	// 로그인 버튼을 클릭했을때
+	$('#btn').click(function(){
+		let id=$('#id').val(); // val() => <input>에서 입력된 값을 가지고 올때 
+		if(id.trim()=="")
+		{
+			$('#id').focus();
+			return;
+		}
+		let pw=$('#pwd').val(); // val() => <input>에서 입력된 값을 가지고 올때 
+		if(pw.trim()=="")
+		{
+			$('#pwd').focus();
+			return;
+		}
+	})
+})
+</script>
+</head>
+<body>
+  <center>
+    <h1>Login</h1>
+    <table border=0 bordercolor=black width=300>
+     <tr>
+       <td width=20% align=right>ID</td>
+       <td width=80%><input type=text id=id size=15></td>
+     </tr>
+     <tr>
+       <td width=20% align=right>PW</td>
+       <td width=80%><input type=password id=pwd size=15></td>
+     </tr>
+     <tr>
+       <td colspan=2 align=center>
+         <input type=button value="로그인" id="btn">
+       </td>
+     </tr>
+    </table>
+  </center>
+</body>
+</html>

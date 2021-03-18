@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+class Sawon{
+	// 생성자 함수 => 멤버변수 설정 
+	constructor(name,sex,age)
+	{
+		// 멤버변수 설정 
+		this.name=name;
+		this.sex=sex;
+		this.age=age;
+	}
+	setName(name)
+	{
+		this.name=name;
+	}
+	getName()
+	{
+		return this.name;
+	}
+	print()
+	{
+		console.log("이름:"+this.name);
+		console.log("성별:"+this.sex);
+		console.log("나이:"+this.age);
+	}
+}
+let sa=new Sawon("홍길동","남자",25);
+sa.setName("박문수");
+sa.print();
+</script>
+</head>
+<body>
+
+</body>
+</html>
