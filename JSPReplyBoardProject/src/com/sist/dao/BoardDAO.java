@@ -94,8 +94,77 @@ public class BoardDAO {
 		  }
 		  return list;
 	  }
+	  public int boardRowCount() {
+		  int cnt=0;
+		  try {
+			  getConnection();
+			  String sql = "SELECT COUNT(*) FROM jsReplyBoard";
+			  
+			  ps=conn.prepareStatement(sql);
+			  ResultSet rs=ps.executeQuery();
+			  rs.next();
+			  cnt = rs.getInt(1);
+			  
+		  }catch(Exception ex) {
+			  ex.printStackTrace();
+		  } finally {
+			  disConnection();
+		  }
+		  return cnt;
+	  }
 	  // 글쓰기
+	  public void boardInsert(BoardVO vo) {
+		  try {
+			  getConnection();
+			  String sql = "INSERT INTO jsReplyBoard(no,name,subject,content,pwd,group_id) "
+			  		+ "VALUES(job_no_seq.nextval,?,?,?,?,(SELECT NVL(MAX(group_id)+1,1) FROM jsReplyBoard))";
+			  
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, vo.getName());
+			  ps.setString(2, vo.getSubject());
+			  ps.setString(3, vo.getContent());
+			  ps.setString(4, vo.getPwd());
+			  ps.executeUpdate();
+			  
+		  }catch(Exception ex) {
+			  ex.printStackTrace();
+		  } finally {
+			  disConnection();
+		  }
+	  }
 	  // 내용보기 => SQL:2개
+	  public BoardVO boardDetailData(int no,int type) {
+		  BoardVO vo = new BoardVO();
+		  try {
+			  getConnection();
+			  String sql = "";
+			  if(type==1) {     // 조회
+				  sql="UPDATE jsReplyBoard SET hit=hit+1 WHERE no=?";
+				  ps=conn.prepareStatement(sql);
+				  ps.setInt(1, no);
+				  ps.executeUpdate();
+			  }
+			  // 수정
+			  sql="SELECT no,name,subject,content,regdate,hit FROM jsReplyBoard WHERE no=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, no);
+			  ResultSet rs=ps.executeQuery();
+			  rs.next();
+			  vo.setNo(rs.getInt(1));
+			  vo.setName(rs.getString(2));  
+			  vo.setSubject(rs.getString(3));  
+			  vo.setContent(rs.getString(4));  
+			  vo.setRegdate(rs.getDate(5));  
+			  vo.setHit(rs.getInt(6));
+			  rs.close();
+		  }catch(Exception ex) {
+			  ex.printStackTrace();
+		  } finally {
+			  disConnection();
+		  }
+		  
+		  return vo;
+	  }
 	  // 답변 => SQL:4개 
 	  // 수정
 	  // 삭제 => SQL:4개
