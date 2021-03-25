@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sist.dao.*,java.util.*" %>
-    
- <%
- 	String index = request.getParameter("index");
- 	if(index==null){
- 		index="1";
- 	}
- 	FoodDAO dao = new FoodDAO();
- 	List<FoodCategoryVO> list = dao.foodCategoryData(Integer.parseInt(index));
- %>
+<%
+    String index=request.getParameter("index");
+    if(index==null) index="1";
+    FoodDAO dao=new FoodDAO();
+    List<FoodCategoryVO> list=dao.foodCategoryData(Integer.parseInt(index));
+%> 
 <!DOCTYPE html>
 <html>
 <head>
