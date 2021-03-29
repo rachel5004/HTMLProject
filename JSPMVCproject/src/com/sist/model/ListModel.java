@@ -2,7 +2,7 @@ package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-public class ListModel {
+public class ListModel implements Model{
 	public void handlerRequest(HttpServletRequest request) {
 		List<String> list = new ArrayList<String>();
 		list.add("홍길동");

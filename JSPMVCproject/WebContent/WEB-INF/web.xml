@@ -4,7 +4,7 @@
   <!-- Servlet 등록 -->
   <servlet>
   	<servlet-name>mvc</servlet-name>
-  	<servlet-class>com.sist.controller.Controller</servlet-class>
+  	<servlet-class>com.sist.controller.Controller2</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>mvc</servlet-name>
