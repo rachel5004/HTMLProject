@@ -7,10 +7,8 @@ public class EmpDAO {
 	   private Connection conn;
 	   private PreparedStatement ps;
 	   // 미리 생성된 Connection주소 얻기
-	   public void getConnection()
-	   {
-		   try
-		   {
+	   public void getConnection() {
+		   try {
 			   Context init=new InitialContext();
 			   Context c=(Context)init.lookup("java://comp/env");
 			   DataSource ds=(DataSource)c.lookup("jdbc/oracle");
@@ -18,20 +16,16 @@ public class EmpDAO {
 		   }catch(Exception ex) {}
 	   }
 	   // 반환 
-	   public void disConnection()
-	   {
-		   try
-		   {
+	   public void disConnection() {
+		   try {
 			   if(ps!=null) ps.close();
 			   if(conn!=null) conn.close();
 		   }catch(Exception ex) {}
 	   }
 	   // 목록
-	   public List<EmpVO> empListData()
-	   {
+	   public List<EmpVO> empListData() {
 		   List<EmpVO> list=new ArrayList<EmpVO>();
-		   try
-		   {
+		   try {
 			   // 주소를 얻기
 			   getConnection();
 			   String sql="SELECT empno,ename,job,hiredate,sal,dname,loc "
@@ -39,8 +33,7 @@ public class EmpDAO {
 					     +"WHERE emp.deptno=dept.deptno";
 			   ps=conn.prepareStatement(sql);
 			   ResultSet rs=ps.executeQuery();
-			   while(rs.next())
-			   {
+			   while(rs.next()) {
 				   EmpVO vo=new EmpVO();
 				   vo.setEmpno(rs.getInt(1));
 				   vo.setEname(rs.getString(2));
@@ -52,12 +45,9 @@ public class EmpDAO {
 				   list.add(vo);
 			   }
 			   rs.close();
-		   }catch(Exception ex)
-		   {
+		   }catch(Exception ex) {
 			   ex.printStackTrace();
-		   }
-		   finally
-		   {
+		   } finally {
 			   disConnection();// 반환  => 재사용
 		   }
 		   return list;
