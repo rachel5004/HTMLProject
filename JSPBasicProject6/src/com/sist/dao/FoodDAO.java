@@ -89,6 +89,58 @@ public class FoodDAO {
 		 }
 		 return list;
 	 }
+	 /*
+	  *   NO      NOT NULL NUMBER         
+		CNO              NUMBER         
+		POSTER  NOT NULL VARCHAR2(4000) 
+		TITLE   NOT NULL VARCHAR2(200)  
+		SCORE   NOT NULL NUMBER(2,1)    
+		ADDRESS NOT NULL VARCHAR2(300)  
+		TEL     NOT NULL VARCHAR2(30)   
+		TYPE    NOT NULL VARCHAR2(100)  
+		PRICE   NOT NULL VARCHAR2(50)   
+		PARKING          VARCHAR2(20)   
+		TIME             VARCHAR2(50)   
+		MENU             VARCHAR2(1000) 
+		GOOD             NUMBER         
+		SOSO             NUMBER         
+		BAD              NUMBER   
+	  */
+	 public void foodInsert(FoodHouseVO vo)
+	 {
+		 try
+		 {
+			 conn=dm.getConnection();
+			 String sql="INSERT INTO food_house VALUES("
+					   +"(SELECT NVL(MAX(no)+1,1) FROM food_house),"
+					   +"?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			 ps=conn.prepareStatement(sql);
+			 //?에 값을 채운다
+			 ps.setInt(1, vo.getCno());
+			 ps.setString(2, vo.getPoster());
+			 ps.setString(3, vo.getTitle());
+			 ps.setDouble(4, vo.getScore());
+			 ps.setString(5, vo.getAddress());
+			 ps.setString(6, vo.getTel());
+			 ps.setString(7, vo.getType());
+			 ps.setString(8, vo.getPrice());
+			 ps.setString(9, vo.getParking());
+			 ps.setString(10, vo.getTime());
+			 ps.setString(11, vo.getMenu());
+			 ps.setInt(12, vo.getGood());
+			 ps.setInt(13,vo.getSoso());
+			 ps.setInt(14, vo.getBad());
+			 
+			 ps.executeUpdate();
+		 }catch(Exception ex)
+		 {
+			 ex.printStackTrace();
+		 }
+		 finally
+		 {
+			 dm.disConnection(conn, ps);
+		 }
+	 }
 }
 
 
