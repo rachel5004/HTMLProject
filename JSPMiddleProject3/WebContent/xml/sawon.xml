@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	XML : 지정된 태그 <xml>, 나머지는 사용자 정의
+	XML을 사용할 수 있게 정의된 문서를 넘겨준다(dtd,스키마)
+	= 정확성, 호환성
+	= 무겁다, 태그가 어렵다
+	= 문서형 데이터베이스
+	= B2B
+	= 문법: 엄격하다
+	===============
+	1. 태그, 속성은 대소문자를 구분한다 <a> != <A>
+	2. 태그 : 여는 태그 <>, 닫는 태그 </>, 빈 태그 <ipnut />
+		여는 태그와 닫는 태그가 명확해야한다 (계층 구조)
+		속성값은 반드시 ""
+		<td>
+			<input type="text" name="aaa" size="10"/>
+		</td>
+	3. 태그제작시 => 알파벳, 한글로 시작
+				  숫자가 앞에 올 수 없다
+				  특수문자 사용 , _ - .
+	4. 반드시 최상위 태그가 1개 있어야한다
+ -->
+<sawon>
+<list no="a">
+	<name>홍길동</name>
+	<sex>남자</sex>
+	<age>25</age>
+	<dept>개발부</dept>
+	<sal>3000</sal>
+</list>
+<list no="b">
+	<name>홍길동</name>
+	<sex>남자</sex>
+	<age>25</age>
+	<dept>개발부</dept>
+	<sal>3000</sal>
+</list>
+<list no="c">
+	<name>홍길동</name>
+	<sex>남자</sex>
+	<age>25</age>
+	<dept>개발부</dept>
+	<sal>3000</sal>
+</list>
+</sawon>

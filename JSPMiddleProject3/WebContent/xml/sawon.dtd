@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	시작태그 sawon
+	list+ => 한번 이상 사용
+	list* => 0번 이상
+	list? => 한번만 사용/사용하지않아도 됨
+	list|list2 => 둘 중 하나 사용
+	
+ -->
+<!ELEMENT sawon (list)+>
+<!ELEMENT list (name,sex,dept,age)> <!-- ,는 순서 -->
+<!ATTLIST list no ID #REQUIRED>
+<!ELEMENT name (#PCDATA)> <!-- 문자열 사용 -->
+<!ELEMENT sex (#PCDATA)>
+<!ELEMENT dept (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
