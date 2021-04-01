@@ -6,10 +6,8 @@ public class MemberDAO {
    private Connection conn;
    private PreparedStatement ps;
    // 미리 만들어진 객체주소를 얻어온다 (Connection)
-   public void getConnection()
-   {
-	   try
-	   {
+   public void getConnection() {
+	   try {
 		   Context init=new InitialContext();
 		   Context c=(Context)init.lookup("java://comp/env");
 		   DataSource ds=(DataSource)c.lookup("jdbc/oracle");
@@ -17,20 +15,16 @@ public class MemberDAO {
 	   }catch(Exception ex){}
    }
    // 반환 (풀(POOL)로 반환) => 재사용
-   public void disConnection()
-   {
-	   try
-	   {
+   public void disConnection() {
+	   try {
 		   if(ps!=null) ps.close();
 		   if(conn!=null) conn.close();
 	   }catch(Exception ex) {}
    }
    // 기능 
-   public String isLogin(String id,String pwd)
-   {
+   public String isLogin(String id,String pwd) {
 	   String result="";
-	   try
-	   {
+	   try {
 		   // 연결
 		   getConnection();
 		   String sql="SELECT COUNT(*) FROM webMember "
@@ -42,12 +36,9 @@ public class MemberDAO {
 		   int count=rs.getInt(1);
 		   rs.close();
 		   /////////////////// ID가 존재여부 
-		   if(count==0) // ID가 없는 상태
-		   {
+		   if(count==0) {// ID가 없는 상태
 			   result="NOID";
-		   }
-		   else // ID가 존재하는 상태
-		   {
+		   } else {// ID가 존재하는 상태
 			   sql="SELECT pwd,name FROM webMember "
 				  +"WHERE id=?";
 			   ps=conn.prepareStatement(sql);
@@ -58,12 +49,10 @@ public class MemberDAO {
 			   String name=rs.getString(2);
 			   rs.close();
 			   
-			   if(db_pwd.equals(pwd))
-			   {
+			   if(db_pwd.equals(pwd)) {
 				   result=name;
 			   }
-			   else
-			   {
+			   else {
 				   result="NOPWD";
 			   }
 		   }

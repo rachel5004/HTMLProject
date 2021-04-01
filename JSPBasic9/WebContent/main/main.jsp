@@ -35,29 +35,16 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="main.jsp">Home</a></li>
-      <%
-         if(id==null)
-         {
-      %>
+      <% if(id==null) { %>
       <li><a href="#">회원가입</a></li>
-      <%
-         }
-         else
-         {
-      %>
+      <% } else { %>
       <li><a href="#">회원수정</a></li> 
-      <%  	 
-         }
-      %>
+      <% } %>
       <li><a href="#">맛집추천</a></li>
-      <%
-        if(id!=null)
-        {
-      %>
+      
+      <% if(id!=null) { %>
       <li><a href="#">마이페이지</a></li>
-      <%
-        }
-      %>
+      <% } %>
     </ul>
   </div>
 </nav>
