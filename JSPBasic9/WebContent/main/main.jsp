@@ -25,7 +25,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7e8bc1d2f7bde96cce0a16b1cec2ee0&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=706c8f8899d9a465c18026fc236c487c&libraries=services"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">

@@ -151,11 +151,9 @@ public class FoodDAO {
 	   private String poster,title,address,tel,type,price,parking,time,menu;
 	   private double score;
 	  */
-	 public FoodVO foodDetailData(int no)
-	 {
+	 public FoodVO foodDetailData(int no) {
 		 FoodVO vo=new FoodVO();
-		 try
-		 {
+		 try {
 			 getConnection();
 			 String sql="SELECT no,poster,title,address,tel,price,parking,time,NVL(menu,'no'),"
 					   +"score,good,soso,bad,type "

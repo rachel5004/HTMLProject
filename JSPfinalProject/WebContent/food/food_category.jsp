@@ -38,7 +38,7 @@
 		    <p>사장님께서 들어가자마자 친절하게 맞이해주시고, 메뉴에 대한 설명도 자세히 해주셨어요. 최근 비건 디저트가 추가되었다고해서, 저는 쑥머핀과 단호박케이크(둘다 비건메뉴), 아메리카노를 주문했습니다! 일단 플레이팅부터 머랭에, 비건 비스코티 등으로 장식되어있는데, 너무나도 정성스럽고 예뻐서 감탄했고,아메리카노도 꽤 큰컵에 담겨 나왔습니다! 선택장애가 올지도 모를정도로 비건 디저트말고도 정말정말 다양한 메뉴가 있어서, 자주 가게 될것같은곳!!!:-)</p>
 		  </div>
 		  
-		  <div class="fab"><a href="#"><i class="fa fa-arrow-down fa-3x"></i></a></div>
+		  <div class="fab"><a href="../food/detail_before.do?no=${fvo.no }"><i class="fa fa-arrow-down fa-3x"></i></a></div>
 		</div>
       <%--<table class="table">
         <tr>

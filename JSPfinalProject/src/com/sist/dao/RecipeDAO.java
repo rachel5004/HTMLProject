@@ -15,7 +15,7 @@ public class RecipeDAO {
 	   // SQL문장 전송 
 	   private PreparedStatement ps;
 	   // 미리 생성된 Connection객체 읽기
-	   private static FoodDAO dao;
+	   private static RecipeDAO dao;
 	   public void getConnection() {
 		   try {
 			   // JNDI초기화 : 탐색기를 연다
@@ -31,6 +31,11 @@ public class RecipeDAO {
 			   if(ps!=null) ps.close();
 			   if(conn!=null) conn.close();
 		   }catch(Exception ex){}
+	   }
+	   public static RecipeDAO newInstance() {
+		   if(dao==null)
+			   dao=new RecipeDAO();
+		   return dao;
 	   }
 	   /* 	recipe list
 	    	JSP(요청: ~.do) ==> DispatcherServlet => Model
@@ -71,5 +76,22 @@ public class RecipeDAO {
 			   disConnection();
 		   }
 		   return list;
+	   }
+	   public int recipeCount() {
+		   int count = 0;
+		   try {
+			   getConnection();
+			   String sql = "SELECT COUNT(*) FROM recipe";
+			   ps=conn.prepareStatement(sql);
+			   ResultSet rs=ps.executeQuery();
+			   rs.next();
+			   count = rs.getInt(1);
+			   rs.close();
+		   }catch(Exception ex) {
+			   ex.printStackTrace();
+		   } finally {
+			   disConnection();
+		   }
+		   return count;
 	   }
 }
