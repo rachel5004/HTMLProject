@@ -184,24 +184,25 @@ public class FoodDAO {
 	   List<RecipeVO> list = new ArrayList<RecipeVO>();
 		 try {
 			 getConnection();
-			 String sql="SELECT no,poster,title,chef,hit,rownum "
-					   +"FROM recipe "
-					   +"WHERE REGEXP_LIKE(?) AND rownum=<5";
-			 ps=conn.prepareStatement(sql);
-			 ps.setString(1, type.replace("/", "|").replace(" ", ""));
-			 ResultSet rs=ps.executeQuery();
-			 while(rs.next()) {
-				 RecipeVO vo = new RecipeVO();
-				 
-				 vo.setNo(rs.getInt(1));
-				 vo.setPoster(rs.getString(2));
-				 vo.setTitle(rs.getString(3));
-				 vo.setChef(rs.getString(4));
-				 vo.setHit(rs.getString(5));
-				 list.add(vo);
-
-			 }
-			 rs.close();
+    		 String sql="SELECT no,poster,title,chef,hit,rownum "
+    				   +"FROM recipe "
+    				   +"WHERE REGEXP_LIKE(title,?) AND rownum<=5";
+    		 ps=conn.prepareStatement(sql);
+    		 if(type.equals("기타 양식")) {
+    			 type="기타|양식";
+    		 }
+    		 ps.setString(1, type.replace("/", "|").replace(" ", ""));
+    		 ResultSet rs=ps.executeQuery();
+    		 while(rs.next()) {
+    			 RecipeVO vo=new RecipeVO();
+    			 vo.setNo(rs.getInt(1));
+    			 vo.setPoster(rs.getString(2));
+    			 vo.setTitle(rs.getString(3));
+    			 vo.setChef(rs.getString(4));
+    			 vo.setHit(rs.getString(5));
+    			 list.add(vo);
+    		 }
+    		 rs.close();
 			 
 		 }catch(Exception ex) {
 			 ex.printStackTrace();
