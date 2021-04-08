@@ -34,15 +34,12 @@
         <figure>
           <header class="heading">총 <span style="color:green;font-weight: bold;"><fmt:formatNumber value="${count }" pattern="000,000"/></span>개의 맛있는 레시피가 있습니다.</header>
           <ul class="nospace clear">
-          <%--
-               for(RecipeVO vo:rList)
-           --%>
-          <c:forEach var="vo" items="${rlist }" varStatus="s">
+          <c:forEach var="vo" items="${rList }" varStatus="s">
             <c:if test="${s.index%4==0 }">
-             <li class="one_quarter first"><a href="#"><img src="${vo.poster }" title="${vo.title }" class="img-rounded"></a></li>
+             <li class="one_quarter first"><a href="../recipe/recipe_make.do?no=${vo.no }"><img src="${vo.poster }" title="${vo.title }" class="img-rounded"></a></li>
             </c:if>
             <c:if test="${s.index%4!=0 }">
-             <li class="one_quarter"><a href="#"><img src="${vo.poster }" title="${vo.title }" class="img-rounded"></a></li>
+             <li class="one_quarter"><a href="../recipe/recipe_make.do?no=${vo.no }"><img src="${vo.poster }" title="${vo.title }" class="img-rounded"></a></li>
             </c:if>
           </c:forEach>
           </ul>
@@ -53,10 +50,10 @@
       <!-- ################################################################################################ -->
       <nav class="pagination">
         <ul>
-          <c:if test="${startpage>1 }">
-           <li><a href="../recipe/recipe_list.do?page=${startpage-1 }">&laquo; 이전</a></li>
+          <c:if test="${startPage>1 }">
+           <li><a href="../recipe/recipe_list.do?page=${startPage-1 }">&laquo; 이전</a></li>
           </c:if>
-          <c:forEach var="i" begin="${startpage }" end="${endpage }" step="1">
+          <c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
             <c:if test="${i==curpage }">
              <c:set var="type" value="class=current"/>
             </c:if>
@@ -65,8 +62,8 @@
             </c:if>
             <li ${type }><a href="../recipe/recipe_list.do?page=${i }">${i }</a></li>
           </c:forEach>
-          <c:if test="${endpage<totalpage }">
-            <li><a href="../recipe/recipe_list.do?page=${endpage+1 }">다음 &raquo;</a></li>
+          <c:if test="${endPage<totalpage }">
+            <li><a href="../recipe/recipe_list.do?page=${endPage+1 }">다음 &raquo;</a></li>
           </c:if>
         </ul>
       </nav>

@@ -56,7 +56,7 @@ public class BoardDAO {
 			  String sql="SELECT no,subject,name,regdate,hit,group_tab,num "
 					    +"FROM (SELECT no,subject,name,regdate,hit,group_tab,rownum as num "
 					    +"FROM (SELECT no,subject,name,regdate,hit,group_tab "
-					    +"FROM jspReplyBoard ORDER BY group_id DESC,group_step ASC)) "
+					    +"FROM jsReplyBoard ORDER BY group_id DESC,group_step ASC)) "
 					    +"WHERE num BETWEEN ? AND ?";
 			            // 페이징기법 => 인라인뷰 
 			  ps=conn.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class BoardDAO {
 		  int count=0;
 		  try {
 			  getConnection();
-			  String sql="SELECT COUNT(*) FROM jspReplyBoard";
+			  String sql="SELECT COUNT(*) FROM jsReplyBoard";
 			  ps=conn.prepareStatement(sql);
 			  ResultSet rs=ps.executeQuery();
 			  rs.next();
@@ -113,7 +113,7 @@ public class BoardDAO {
 	  public void boardInsert(BoardVO vo) {
 		  try {
 			  getConnection();
-			  String sql="INSERT INTO jspReplyBoard(no,name,subject,content,pwd,group_id) "
+			  String sql="INSERT INTO jsReplyBoard(no,name,subject,content,pwd,group_id) "
 					    +"VALUES(jrb_no_seq.nextval,?,?,?,?,"
 					    +"(SELECT NVL(MAX(group_id)+1,1) FROM jspReplyBoard))";
 			  ps=conn.prepareStatement(sql);
@@ -137,7 +137,7 @@ public class BoardDAO {
 			  String sql="";
 			  // 상세보기에서만 적용 
 			  if(type==1) {
-				  sql="UPDATE jspReplyBoard SET "
+				  sql="UPDATE jsReplyBoard SET "
 					 +"hit=hit+1 "
 				     +"WHERE no=?";
 				  ps=conn.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class BoardDAO {
 			  
 			  // 상세보기 , 수정하기 동일하게 적용
 			  sql="SELECT no,name,subject,content,regdate,hit "
-				 +"FROM jspReplyBoard "
+				 +"FROM jsReplyBoard "
 			     +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
 			  ps.setInt(1, no);
@@ -186,7 +186,7 @@ public class BoardDAO {
 			  conn.setAutoCommit(false);// 트랜잭션 프로그램 (일괄 처리)
 			  // 1. root가 가지고 있는 그룹 관련 컬럼값을 읽어 온다 SELECT 
 			  String sql="SELECT group_id,group_step,group_tab "
-					    +"FROM jspReplyBoard "
+					    +"FROM jsReplyBoard "
 					    +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
 			  ps.setInt(1, root);
@@ -197,7 +197,7 @@ public class BoardDAO {
 			  int gt=rs.getInt(3);
 			  rs.close();
 			  // 2. 전체 번호(group_step)를 증가한다 UPDATE
-			  sql="UPDATE jspReplyBoard SET "
+			  sql="UPDATE jsReplyBoard SET "
 				 +"group_step=group_step+1 "
 				 +"WHERE group_id=? AND group_step>?";
 			  ps=conn.prepareStatement(sql);
@@ -205,7 +205,7 @@ public class BoardDAO {
 			  ps.setInt(2, gs);
 			  ps.executeUpdate();
 			  // 3. INSERT 
-			  sql="INSERT INTO jspReplyBoard VALUES("
+			  sql="INSERT INTO jsReplyBoard VALUES("
 				 +"jrb_no_seq.nextval,?,?,?,?,SYSDATE,0,?,?,?,?,0)";
 			  ps=conn.prepareStatement(sql);
 			  // ?에 값을 채운다 
@@ -222,7 +222,7 @@ public class BoardDAO {
 			  ps.executeUpdate();
 			  // 4. root의 depth를 증가 UPDATE
 			  
-			  sql="UPDATE jspReplyBoard SET "
+			  sql="UPDATE jsReplyBoard SET "
 				 +"depth=depth+1 "
 				 +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
@@ -257,7 +257,7 @@ public class BoardDAO {
 			  getConnection();
 			  // 2. SQL문장 
 			  // 2-1. 비밀번호 검색
-			  String sql="SELECT pwd FROM jspReplyBoard "
+			  String sql="SELECT pwd FROM jsReplyBoard "
 					    +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
 			  // ?에 값을 채운다 
@@ -271,7 +271,7 @@ public class BoardDAO {
 			  if(db_pwd.equals(vo.getPwd())) {
 				  bCheck=true;
 				  // 수정하기
-				  sql="UPDATE jspReplyBoard SET "
+				  sql="UPDATE jsReplyBoard SET "
 				     +"name=?,subject=?,content=? "
 				     +"WHERE no=?";
 				  ps=conn.prepareStatement(sql);
@@ -310,7 +310,7 @@ public class BoardDAO {
 			  conn.setAutoCommit(false);
 			  // 처리
 			  // 1.비밀번호 
-			  String sql="SELECT pwd FROM jspReplyBoard "
+			  String sql="SELECT pwd FROM jsReplyBoard "
 					    +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
 			  ps.setInt(1, no);
@@ -321,7 +321,7 @@ public class BoardDAO {
 			  
 			  if(db_pwd.equals(pwd)) {
 				  bCheck=true;
-				  sql="SELECT root,depth FROM jspReplyBoard "
+				  sql="SELECT root,depth FROM jsReplyBoard "
 					 +"WHERE no=?";
 				  ps=conn.prepareStatement(sql);
 				  ps.setInt(1, no);
@@ -332,14 +332,14 @@ public class BoardDAO {
 				  rs.close();
 				  
 				  if(depth==0) {  //댓글이 없는 상태
-					  sql="DELETE FROM jspReplyBoard "
+					  sql="DELETE FROM jsReplyBoard "
 						 +"WHERE no=?";
 					  ps=conn.prepareStatement(sql);
 					  ps.setInt(1, no);
 					  ps.executeUpdate();
 				  } else {   //댓글이 있는 상태 
 					  String msg="관리자가 삭제한 게시물입니다";
-					  sql="UPDATE jspReplyBoard SET "
+					  sql="UPDATE jsReplyBoard SET "
 					     +"subject=?,content=? "
 						 +"WHERE no=?";
 					  ps=conn.prepareStatement(sql);
@@ -350,7 +350,7 @@ public class BoardDAO {
 					  ps.executeUpdate();
 				  }
 				  
-				  sql="UPDATE jspReplyBoard SET "
+				  sql="UPDATE jsReplyBoard SET "
 					 +"depth=depth-1 "
 					 +"WHERE no=?";
 				  ps=conn.prepareStatement(sql);

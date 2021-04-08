@@ -13,16 +13,23 @@ import com.sist.vo.*;
 public class MainModel {
   @RequestMapping("main/main.do")
   public String main_home(HttpServletRequest request,HttpServletResponse response)
-  {	
+  {
+	  // 쿠키 
+	  List<FoodVO> fList=new ArrayList<FoodVO>();
+	  
 	  FoodDAO dao=FoodDAO.newInstance();
-	  List<FoodVO> fList = new ArrayList<FoodVO>();
-	  Cookie[] cookies = request.getCookies();
-	  if(cookies!=null) {
-		  for(int i=cookies.length-1;i>=0;i--) {
-			  if(cookies[i].getName().startsWith("m")) {
+	  
+	  Cookie[] cookies=request.getCookies();
+	  if(cookies!=null)
+	  {
+		  for(int i=cookies.length-1;i>=0;i--)
+		  {
+			  if(cookies[i].getName().startsWith("m"))
+			  {
 				  cookies[i].setPath("/");
-				  String no = cookies[i].getValue();
-				  FoodVO vo = dao.foodCookieData(Integer.parseInt(no));
+				  System.out.println(cookies[i].getName());
+				  String no=cookies[i].getValue();
+				  FoodVO vo=dao.foodCookiePrintData(Integer.parseInt(no));
 				  fList.add(vo);
 			  }
 		  }
